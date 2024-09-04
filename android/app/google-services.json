@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "409419825888",
+    "project_id": "fir-oceans",
+    "storage_bucket": "fir-oceans.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:409419825888:android:ae6ee6fa158b85e8fe0685",
+        "android_client_info": {
+          "package_name": "br.com.academiadoflutter.oceans"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhe7Gpdln-PKJ4HKnW1jZHvoeNfPiOAzw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:409419825888:android:16ceb207c987dac4fe0685",
+        "android_client_info": {
+          "package_name": "br.com.academiadoflutter.ocenas"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhe7Gpdln-PKJ4HKnW1jZHvoeNfPiOAzw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
