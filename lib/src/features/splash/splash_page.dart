@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:oceans/src/features/splash/auth/login/login_page.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -37,27 +38,26 @@ class _SplashPageState extends State<SplashPage> {
         ),
         child: Center(
           child: AnimatedOpacity(
-            duration: const Duration(seconds: 3),
+            duration: const Duration(seconds: 4),
             curve: Curves.easeIn,
             opacity: _animationOpacityLogo,
-            onEnd: () => Navigator.of(context).pushReplacementNamed('/contact/list'), 
-            // onEnd: () => Navigator.of(context).pushAndRemoveUntil(
-            //     PageRouteBuilder(
-            //         settings: const RouteSettings(name: '/list'),
-            //         pageBuilder: (
-            //           context,
-            //           animation,
-            //           secondaryAnimation,
-            //         ) {
-            //           return const ListPage();
-            //         },
-            //         transitionsBuilder: (_, animation, __, child){
-            //           return FadeTransition(opacity: animation, child: child);
-            //         },
-            //         ),
-            //     (route) => false),
+            onEnd: () => Navigator.of(context).pushAndRemoveUntil(
+                PageRouteBuilder(
+                    settings: const RouteSettings(name: '/login'),
+                    pageBuilder: (
+                      context,
+                      animation,
+                      secondaryAnimation,
+                    ) {
+                      return const LoginPage();
+                    },
+                    transitionsBuilder: (_, animation, __, child){
+                      return FadeTransition(opacity: animation, child: child);
+                    },
+                    ),
+                (route) => false),
             child: AnimatedContainer(
-              duration: const Duration(seconds: 3),
+              duration: const Duration(seconds: 4),
               curve: Curves.linearToEaseOut,
               width: _logoAnimationWidth,
               height: _logoAnimationHeight,

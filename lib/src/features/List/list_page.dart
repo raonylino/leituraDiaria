@@ -31,20 +31,32 @@ class ListPage extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
           await Navigator.pushNamed(context, '/contact/register');
           // ignore: use_build_context_synchronously
           context.read<ContactListCubit>().findAll();
         },
         backgroundColor: const Color.fromRGBO(51, 80, 241, 1),
-        child: const Icon(
-          Icons.add,
-          color: Colors.white,
-          size: 32,
+        label: const Row(
+          children: [
+            Text(
+              'Cadastrar',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontFamily: 'Poppins',
+              ),
+            ),
+            Icon(
+              Icons.add,
+              color: Colors.white,
+              size: 32,
+            ),
+          ],
         ),
       ),
-      body:Container(
+      body: Container(
         padding: const EdgeInsets.all(10),
         child: RefreshIndicator(
           onRefresh: () => context.read<ContactListCubit>().findAll(),
@@ -53,7 +65,8 @@ class ListPage extends StatelessWidget {
               SliverFillRemaining(
                 child: Column(
                   children: [
-                    Loader<ContactListCubit, ContactListState>(selector: (state) {
+                    Loader<ContactListCubit, ContactListState>(
+                        selector: (state) {
                       return state.maybeWhen(
                           loading: () => true, orElse: () => false);
                     }),
@@ -86,8 +99,8 @@ class ListPage extends StatelessWidget {
                                         },
                                         text: 'Cancel',
                                         iconData: Icons.cancel_outlined,
-                                        textStyle:
-                                            const TextStyle(color: Colors.white),
+                                        textStyle: const TextStyle(
+                                            color: Colors.white),
                                         iconColor: Colors.white,
                                         color: Colors.orange,
                                       ),
@@ -102,29 +115,29 @@ class ListPage extends StatelessWidget {
                                         text: 'Delete',
                                         iconData: Icons.delete,
                                         color: Colors.red,
-                                        textStyle:
-                                            const TextStyle(color: Colors.white),
+                                        textStyle: const TextStyle(
+                                            color: Colors.white),
                                         iconColor: Colors.white,
                                       ),
                                     ]);
                               },
-                              onTap: () {
-                                
-                              },
+                              onTap: () {},
                               leading: const Icon(Icons.bookmark_outline_sharp),
-                              title: Text(contact.livro,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontFamily: 'Poppins',
-                                      fontSize: 18,
-                                      ),
+                              title: Text(
+                                contact.livro,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: 'Poppins',
+                                  fontSize: 18,
+                                ),
                               ),
-                              subtitle: Text('Ler do ${contact.capitulo}',
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w300,
-                                      fontFamily: 'Poppins',
-                                      fontSize: 16,
-                                      ),
+                              subtitle: Text(
+                                'Ler do ${contact.capitulo}',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w300,
+                                  fontFamily: 'Poppins',
+                                  fontSize: 16,
+                                ),
                               ),
                             );
                           },
