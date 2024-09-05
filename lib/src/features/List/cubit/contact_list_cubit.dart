@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:oceans/src/models/contacts_model.dart';
@@ -10,7 +9,6 @@ part 'contact_list_cubit.freezed.dart';
 class ContactListCubit extends Cubit<ContactListState> {
 
   final ContactsRepository _repository;
-
 
   ContactListCubit(
     {required ContactsRepository repository,}):
@@ -28,6 +26,20 @@ class ContactListCubit extends Cubit<ContactListState> {
       emit(const ContactListState.error('Erro ao buscar contatos'));
     }
   }
-
+  
+    Future<void> deleteByModel(ContactsModel model) async {
+    try {
+      emit(const ContactListState.loading());
+      await Future.delayed(const Duration(seconds: 2));
+      await _repository.delete(model);
+      findAll();
+    } catch (e,s) {
+      log('Erro ao deletar Versiculos', error: e , stackTrace: s);
+      emit(const ContactListState.error('Erro ao deletar Versiculos'));
+    }
+  }
+  
 
 }
+
+

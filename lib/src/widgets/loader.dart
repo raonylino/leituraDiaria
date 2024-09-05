@@ -16,8 +16,8 @@ class Loader<B extends StateStreamable<S>, S> extends StatelessWidget {
             visible: loading,
             child: Expanded(
               child: Center(
-                child: LoadingAnimationWidget.halfTriangleDot(                   
-                  color: Colors.white,
+                child: LoadingAnimationWidget.inkDrop(                   
+                  color: Colors.blue,
                   size: 50,
                 ),
               ),

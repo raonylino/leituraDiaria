@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:oceans/src/features/List/list_page.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -34,28 +33,29 @@ class _SplashPageState extends State<SplashPage> {
           image: DecorationImage(
               image: AssetImage('assets/images/background_image.png'),
               fit: BoxFit.cover,
-              opacity: 0.5),
+              opacity: 0.3),
         ),
         child: Center(
           child: AnimatedOpacity(
             duration: const Duration(seconds: 3),
             curve: Curves.easeIn,
             opacity: _animationOpacityLogo,
-            onEnd: () => Navigator.of(context).pushAndRemoveUntil(
-                PageRouteBuilder(
-                    settings: const RouteSettings(name: '/list'),
-                    pageBuilder: (
-                      context,
-                      animation,
-                      secondaryAnimation,
-                    ) {
-                      return const ListPage();
-                    },
-                    transitionsBuilder: (_, animation, __, child){
-                      return FadeTransition(opacity: animation, child: child);
-                    },
-                    ),
-                (route) => false),
+            onEnd: () => Navigator.of(context).pushReplacementNamed('/contact/list'), 
+            // onEnd: () => Navigator.of(context).pushAndRemoveUntil(
+            //     PageRouteBuilder(
+            //         settings: const RouteSettings(name: '/list'),
+            //         pageBuilder: (
+            //           context,
+            //           animation,
+            //           secondaryAnimation,
+            //         ) {
+            //           return const ListPage();
+            //         },
+            //         transitionsBuilder: (_, animation, __, child){
+            //           return FadeTransition(opacity: animation, child: child);
+            //         },
+            //         ),
+            //     (route) => false),
             child: AnimatedContainer(
               duration: const Duration(seconds: 3),
               curve: Curves.linearToEaseOut,

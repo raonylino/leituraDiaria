@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oceans/src/features/List/cubit/contact_list_cubit.dart';
+
 import 'package:oceans/src/features/List/list_page.dart';
+import 'package:oceans/src/features/register/cubit/register_list_cubit.dart';
+import 'package:oceans/src/features/register/register_list_page.dart';
 import 'package:oceans/src/features/splash/splash_page.dart';
 import 'package:oceans/src/repositories/contacts_repository.dart';
 
@@ -28,6 +31,12 @@ class OceansApp extends StatelessWidget {
               child: const ListPage(),
             );
           },
+          '/contact/register': (_) => BlocProvider(
+                create: (context) => RegisterListCubit(
+                  repository: context.read(),
+                ),
+                child: const RegisterListPage(),
+              ),
         },
       ),
     );
