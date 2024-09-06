@@ -14,12 +14,16 @@ class RegisterListPage extends StatefulWidget {
 class _RegisterListPageState extends State<RegisterListPage> {
   final formKey = GlobalKey<FormState>();
   final _livroEC = TextEditingController();
-  final _capituloEC = TextEditingController();
+  final _capituloInicioEC = TextEditingController();
+  final _capituloFimEC = TextEditingController();
+  final _dataEC = TextEditingController();
 
   @override
   void dispose() {
     _livroEC.dispose();
-    _capituloEC.dispose();
+    _capituloInicioEC.dispose();
+    _capituloFimEC.dispose();
+    _dataEC.dispose();
     super.dispose();
   }
 
@@ -74,14 +78,24 @@ class _RegisterListPageState extends State<RegisterListPage> {
                 image: DecorationImage(
                     image: AssetImage('assets/images/background_register.png'),
                     fit: BoxFit.cover,
-                    opacity: 0.3),
+                    opacity: 0.1),
               ),
               padding: const EdgeInsets.all(8.0),
               width: sizeOF.width,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 20),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      'Nome do Livro:',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontFamily: 'Poppins',
+                      ),
+                    ),
+                  ),
                   SizedBox(
                     height: 60,
                     width: sizeOF.width * .8,
@@ -100,22 +114,86 @@ class _RegisterListPageState extends State<RegisterListPage> {
                     ),
                   ),
                   const SizedBox(height: 15),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      'Capitulos da Leituras:',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontFamily: 'Poppins',
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: sizeOF.width * .8,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          height: 60,
+                          width: sizeOF.width * .35,
+                          child: TextFormField(
+                            controller: _capituloInicioEC,
+                            decoration: const InputDecoration(
+                              label: Text('Capitulo inicio'),
+                              border: OutlineInputBorder(),
+                            ),
+                            validator: (String? value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Capitulo obrigatorio';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                          height: 60,
+                          width: sizeOF.width * .35,
+                          child: TextFormField(
+                            controller: _capituloFimEC,
+                            decoration: const InputDecoration(
+                              label: Text('Capitulo Fim'),
+                              border: OutlineInputBorder(),
+                            ),
+                            validator: (String? value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Capitulo obrigatorio';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      'Data da Leitura:',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontFamily: 'Poppins',
+                      ),
+                    ),
+                  ),
                   SizedBox(
                     height: 60,
                     width: sizeOF.width * .8,
-                    child: TextFormField(
-                      controller: _capituloEC,
-                      decoration: const InputDecoration(
-                        label: Text('Capitulo'),
-                        border: OutlineInputBorder(),
-                      ),
-                      validator: (String? value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Capitulo obrigatorio';
-                        }
-                        return null;
-                      },
-                    ),
+                    child:TextFormField(
+              controller: _dataEC,
+              decoration: InputDecoration(
+                labelText: 'Data da leitura',
+                border: const OutlineInputBorder(),
+                suffixIcon: IconButton(
+                  icon: const Icon(Icons.calendar_today),
+                  onPressed: () => _selectDate(context),
+                ),
+              ),
+              readOnly: true,
+            ),
                   ),
                   const SizedBox(height: 20),
                   ElevatedButton(
@@ -134,7 +212,9 @@ class _RegisterListPageState extends State<RegisterListPage> {
                         context.read<RegisterListCubit>().register(
                               ContactsModel(
                                 livro: _livroEC.text,
-                                capitulo: _capituloEC.text,
+                                capituloInicio:int.parse(_capituloInicioEC.text),
+                                capituloFim: int.parse(_capituloFimEC.text),
+                                dataLeitura: DateTime.parse(_dataEC.text),
                               ),
                             );
                       }
@@ -162,4 +242,22 @@ class _RegisterListPageState extends State<RegisterListPage> {
       ),
     );
   }
+  
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+    if (picked != null) {
+      setState(() {
+        _dataEC.text = "${picked.year}-${picked.month.toString().padLeft(2, '0')}-${picked.day.toString().padLeft(2, '0')}";
+      });
+    }
+  }
 }
+
+
+
+

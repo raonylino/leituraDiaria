@@ -38,9 +38,10 @@ class _SplashPageState extends State<SplashPage> {
         ),
         child: Center(
           child: AnimatedOpacity(
-            duration: const Duration(seconds: 4),
+            duration: const Duration(seconds: 3),
             curve: Curves.easeIn,
             opacity: _animationOpacityLogo,
+            // onEnd: () => Navigator.of(context).pushReplacementNamed('/contact/list'), 
             onEnd: () => Navigator.of(context).pushAndRemoveUntil(
                 PageRouteBuilder(
                     settings: const RouteSettings(name: '/login'),
@@ -57,7 +58,7 @@ class _SplashPageState extends State<SplashPage> {
                     ),
                 (route) => false),
             child: AnimatedContainer(
-              duration: const Duration(seconds: 4),
+              duration: const Duration(seconds: 3),
               curve: Curves.linearToEaseOut,
               width: _logoAnimationWidth,
               height: _logoAnimationHeight,

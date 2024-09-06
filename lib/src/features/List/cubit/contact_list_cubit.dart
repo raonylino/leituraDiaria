@@ -23,7 +23,17 @@ class ContactListCubit extends Cubit<ContactListState> {
       emit(ContactListState.data(contacts: contacts));
     } catch (e,s) {
       log('Erro ao buscar contatos', error: e , stackTrace: s);
-      emit(const ContactListState.error('Erro ao buscar contatos'));
+      emit(const ContactListState.error('Erro ao buscar Leituras'));
+    }
+  }
+
+  Future<void> save(ContactsModel model) async {
+    try {
+      await _repository.updateLeitura(model);
+      findAll();
+    } catch (e,s) {
+      log('Erro ao salvar Versiculos', error: e , stackTrace: s);
+      emit(const ContactListState.error('Erro ao salvar Versiculos'));
     }
   }
   

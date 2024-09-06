@@ -3,29 +3,41 @@ import 'dart:convert';
 class ContactsModel {
   final int? id; // Alterado para int
   final String livro;
-  final String capitulo;
+  final int capituloInicio;
+  final int capituloFim;
+  final DateTime dataLeitura;
+  late bool leituraCompleta;
 
   ContactsModel({
     this.id, 
     required this.livro, 
-    required this.capitulo,
+    required this.capituloInicio, 
+    required this.capituloFim, 
+    required this.dataLeitura,
+    this.leituraCompleta = false,
     });
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
       'livro': livro,
-      'capitulo': capitulo,
+      'capituloInicio': capituloInicio,
+      'capituloFim': capituloFim,
+      'dataLeitura': dataLeitura.toIso8601String(),
+      'leituraCompleta': leituraCompleta
     };
   }
 
-  factory ContactsModel.fromMap(Map<String, dynamic> map) {
-    return ContactsModel(
-      id: map['id'] != null ? map['id'] as int : null, // Alterado para int
-      livro: map['livro'] as String,
-      capitulo: map['capitulo'] as String,
-    );
-  }
+factory ContactsModel.fromMap(Map<String, dynamic> map) {
+  return ContactsModel(
+    id: map['id'] != null ? map['id'] as int : null,
+    livro: map['livro'] != null ? map['livro'] as String : '',
+    capituloInicio: map['capituloInicio'] != null ? map['capituloInicio'] as int : 0,
+    capituloFim: map['capituloFim'] != null ? map['capituloFim'] as int : 0,
+    dataLeitura: map['dataLeitura'] != null ? DateTime.parse(map['dataLeitura'] as String) : DateTime.now(),
+    leituraCompleta: map['leituraCompleta'] != null ? map['leituraCompleta'] as bool : false,
+  );
+}
 
   String toJson() => json.encode(toMap());
 
