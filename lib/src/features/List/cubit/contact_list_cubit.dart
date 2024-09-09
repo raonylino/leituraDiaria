@@ -48,6 +48,12 @@ class ContactListCubit extends Cubit<ContactListState> {
       emit(const ContactListState.error('Erro ao deletar Versiculos'));
     }
   }
+
+  Future<void> success() async {
+    emit(const ContactListState.loading());
+    await Future.delayed(const Duration(seconds: 2));
+    emit(const ContactListState.success());
+  }
   
 
 }
