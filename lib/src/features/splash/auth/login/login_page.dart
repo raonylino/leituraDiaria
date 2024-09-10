@@ -125,22 +125,9 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                           ),
-                          onPressed: () async {
-                            await ControllerLogin.login(
-                                emailEC.text, passwordEC.text, context,
-                                (bool success) {
-                              if (success) {
-                                // ignore: use_build_context_synchronously
+                          onPressed: () {
                                 Navigator.of(context)
                                     .pushReplacementNamed('/contact/list');
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content:
-                                          Text('Email ou Senha Incorreta')),
-                                );
-                              }
-                            });
                           },
                           child: const Text(
                             'Entrar',
