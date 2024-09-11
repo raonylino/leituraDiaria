@@ -7,19 +7,26 @@
         {
             "name": "ocenas",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "args": [
+                "--dart-define-from-file",
+                ".config/env.json"
+            ]
+           
         },
         {
             "name": "ocenas (profile mode)",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "profile"
+            "flutterMode": "profile",
+           
         },
         {
             "name": "ocenas (release mode)",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "release"
+            "flutterMode": "release",
+           
         }
     ]
 }
