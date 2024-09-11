@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oceans/src/features/List/cubit/contact_list_cubit.dart';
-
 import 'package:oceans/src/features/List/list_page.dart';
+import 'package:oceans/src/features/List/list_user_page.dart';
+import 'package:oceans/src/features/auth/email_password/register_page.dart';
+import 'package:oceans/src/features/auth/login/login_page.dart';
 import 'package:oceans/src/features/register/cubit/register_list_cubit.dart';
 import 'package:oceans/src/features/register/register_list_page.dart';
-import 'package:oceans/src/features/splash/auth/email_password/register_page.dart';
-import 'package:oceans/src/features/splash/auth/login/login_page.dart';
 import 'package:oceans/src/features/splash/splash_page.dart';
 import 'package:oceans/src/features/updade/update_update_page.dart';
 import 'package:oceans/src/repositories/contacts_repository.dart';
@@ -27,6 +27,14 @@ class OceansApp extends StatelessWidget {
         routes: {
           '/': (_) => const SplashPage(),
           '/contact/list': (context) {
+            return BlocProvider(
+              create: (context) => ContactListCubit(
+                repository: context.read(),
+              )..findAll(),
+              child: const ListUserPage(),
+            );
+          },
+          '/contact/list/admin': (context) {
             return BlocProvider(
               create: (context) => ContactListCubit(
                 repository: context.read(),

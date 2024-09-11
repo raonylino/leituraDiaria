@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:oceans/src/features/splash/auth/login/controller_login.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -126,8 +125,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                           onPressed: () {
-                                Navigator.of(context)
-                                    .pushReplacementNamed('/contact/list');
+                            
                           },
                           child: const Text(
                             'Entrar',
