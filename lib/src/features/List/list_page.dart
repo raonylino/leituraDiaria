@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_dialogs/dialogs.dart';
 import 'package:material_dialogs/widgets/buttons/icon_button.dart';
+import 'package:oceans/main.dart';
 import 'package:oceans/src/features/List/cubit/contact_list_cubit.dart';
 import 'package:oceans/src/features/List/list_data_controller.dart';
 import 'package:oceans/src/models/contacts_model.dart';
@@ -25,7 +26,18 @@ class _ListPageState extends State<ListPage> {
             bottom: Radius.circular(20),
           ),
         ),
-        backgroundColor: const Color.fromRGBO(51, 80, 241, 1),
+            backgroundColor: const Color.fromRGBO(51, 80, 241, 1),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.logout_outlined,
+            color: Colors.white,
+          ),
+          onPressed: () async {
+            await supabase.auth.signOut();
+            // ignore: use_build_context_synchronously
+            Navigator.of(context).pushReplacementNamed('/login');
+            },
+        ),
         title: const Text(
           'Leitura Biblica Diária',
           style: TextStyle(
