@@ -1,6 +1,8 @@
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:oceans/src/features/auth/login/controller_login.dart';
+import 'package:validatorless/validatorless.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -14,6 +16,7 @@ class _LoginPageState extends State<LoginPage> {
   final passwordEC = TextEditingController();
   final formKey = GlobalKey<FormState>();
   bool success = false;
+  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -79,6 +82,10 @@ class _LoginPageState extends State<LoginPage> {
                             fontFamily: 'Poppins',
                           ),
                         ),
+                        validator: Validatorless.multiple([
+                          Validatorless.required('Email obrigatorio'),
+                          Validatorless.email('Email invalido'),
+                        ]),
                       ),
                       const Padding(
                         padding: EdgeInsets.all(8.0),
@@ -109,6 +116,13 @@ class _LoginPageState extends State<LoginPage> {
                             fontFamily: 'Poppins',
                           ),
                         ),
+                        validator: Validatorless.multiple([
+                          Validatorless.required('Senha obrigatoria'),
+                          Validatorless.min(6,
+                              'Sua senha deve conter no minimo 6 caracteres'),
+                          Validatorless.max(20,
+                              'Sua senha deve conter no maximo 20 caracteres'),
+                        ]),
                       ),
                       const SizedBox(
                         height: 20,
@@ -126,35 +140,75 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                           ),
-                          onPressed: () async {
-                          final isadm = await ControllerLogin.isAdm(emailEC.text);
-                            await ControllerLogin.login(
-                                // ignore: use_build_context_synchronously
-                                emailEC.text, passwordEC.text, context,
-                                (bool success) {
-                              if (success) {
-                                // ignore: use_build_context_synchronously
-                                Navigator.of(context).pushReplacementNamed(isadm
-                                    ? '/contact/list/admin'
-                                    : '/contact/list');
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content:
-                                          Text('Email ou Senha Incorreta')),
-                                );
-                              }
-                            });
-                          },
-                          child: const Text(
-                            'Entrar',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Poppins',
-                            ),
-                          ),
+                          onPressed: _isLoading
+                              ? null
+                              : () async {
+                                  if (formKey.currentState!.validate()) {
+                                    setState(() {
+                                      _isLoading = true;
+                                    });
+
+                                    Timer(const Duration(seconds: 15), () {
+                                      if (_isLoading) {
+                                        setState(() {
+                                          _isLoading = false;
+                                        });
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            const SnackBar(
+                                              content: Text(
+                                                  'Email ou Senha Incorreta'),
+                                            ),
+                                          );
+                                      }
+                                    });
+
+                                    final isadm = await ControllerLogin.isAdm(
+                                        emailEC.text);
+                                    await ControllerLogin.login(
+                                      emailEC.text,
+                                      passwordEC.text,
+                                      // ignore: use_build_context_synchronously
+                                      context,
+                                      (bool success) {
+                                        setState(() {
+                                          _isLoading = false;
+                                        });
+
+                                        if (success) {
+                                          Navigator.of(context)
+                                              .pushReplacementNamed(isadm
+                                                  ? '/contact/list/admin'
+                                                  : '/contact/list');
+                                        } else {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            const SnackBar(
+                                              content: Text(
+                                                  'Email ou Senha Incorreta'),
+                                            ),
+                                          );
+                                        }
+                                      },
+                                    );
+                                  }
+                                },
+                          child: _isLoading
+                              ? const CircularProgressIndicator(
+                                  backgroundColor:
+                                      Color.fromRGBO(21, 39, 65, 1),
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                      Colors.white),
+                                )
+                              : const Text(
+                                  'Entrar',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Poppins',
+                                  ),
+                                ),
                         ),
                       ),
                       Padding(
