@@ -1,4 +1,4 @@
-package com.example.dw_barbershop
+package com.example.oceans
 
 import io.flutter.embedding.android.FlutterActivity
 

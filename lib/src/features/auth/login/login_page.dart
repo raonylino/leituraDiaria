@@ -1,4 +1,6 @@
+
 import 'package:flutter/material.dart';
+import 'package:oceans/src/features/auth/login/controller_login.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -124,8 +126,25 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                           ),
-                          onPressed: () {
-                            
+                          onPressed: () async {
+                          final isadm = await ControllerLogin.isAdm(emailEC.text);
+                            await ControllerLogin.login(
+                                // ignore: use_build_context_synchronously
+                                emailEC.text, passwordEC.text, context,
+                                (bool success) {
+                              if (success) {
+                                // ignore: use_build_context_synchronously
+                                Navigator.of(context).pushReplacementNamed(isadm
+                                    ? '/contact/list/admin'
+                                    : '/contact/list');
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content:
+                                          Text('Email ou Senha Incorreta')),
+                                );
+                              }
+                            });
                           },
                           child: const Text(
                             'Entrar',

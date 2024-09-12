@@ -39,17 +39,14 @@ dependencies:
   riverpod_annotation: ^2.3.5
   asyncstate: ^2.1.0
   loading_animation_widget: ^1.2.1
-  firebase_core: ^3.4.0
   flutter_bloc: ^8.1.6
   bloc: ^8.1.4
   freezed_annotation: ^2.4.4
   dio: ^5.6.0
   dialog: ^0.8.0
   material_dialogs: ^1.1.5
-  wave_loading_bubble: ^0.0.1
   calendar_slider: ^0.0.4
   brasil_fields: ^1.15.0
-  intl: ^0.19.0
   validatorless: ^1.2.3
   awesome_dialog: ^3.2.1
   lottie: ^3.1.2
@@ -100,9 +97,9 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: dw_barbershop_icons
+    - family: oceans_icons
       fonts:
-        - asset: assets/fonts/dw_barbershop_icons.ttf
+        - asset: assets/fonts/oceans_icons.ttf
     
     - family: Poppins
       fonts:

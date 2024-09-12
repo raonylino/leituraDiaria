@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.dw_barbershop"
+    namespace = "com.example.oceans"
     compileSdk = 34
     ndkVersion = flutter.ndkVersion
 

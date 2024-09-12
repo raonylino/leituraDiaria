@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:material_dialogs/dialogs.dart';
-import 'package:material_dialogs/widgets/buttons/icon_button.dart';
 import 'package:oceans/src/features/List/cubit/contact_list_cubit.dart';
 import 'package:oceans/src/features/List/list_data_controller.dart';
 import 'package:oceans/src/models/contacts_model.dart';
