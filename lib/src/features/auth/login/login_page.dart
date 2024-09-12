@@ -148,7 +148,7 @@ class _LoginPageState extends State<LoginPage> {
                                       _isLoading = true;
                                     });
 
-                                    Timer(const Duration(seconds: 15), () {
+                                    Timer(const Duration(seconds: 5), () {
                                       if (_isLoading) {
                                         setState(() {
                                           _isLoading = false;

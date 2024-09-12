@@ -26,7 +26,7 @@ class _ListPageState extends State<ListPage> {
             bottom: Radius.circular(20),
           ),
         ),
-            backgroundColor: const Color.fromRGBO(51, 80, 241, 1),
+        backgroundColor: const Color.fromRGBO(51, 80, 241, 1),
         leading: IconButton(
           icon: const Icon(
             Icons.logout_outlined,
@@ -36,7 +36,7 @@ class _ListPageState extends State<ListPage> {
             await supabase.auth.signOut();
             // ignore: use_build_context_synchronously
             Navigator.of(context).pushReplacementNamed('/login');
-            },
+          },
         ),
         title: const Text(
           'Leitura Biblica Diária',
@@ -55,6 +55,7 @@ class _ListPageState extends State<ListPage> {
           context.read<ContactListCubit>().findAll();
         },
         backgroundColor: const Color.fromRGBO(51, 80, 241, 1),
+        
         label: const Row(
           children: [
             Text(
@@ -102,83 +103,105 @@ class _ListPageState extends State<ListPage> {
                           itemBuilder: (context, index) {
                             final contact = contacts[index];
                             bool leituraCompleta = contact.leituraCompleta;
-                            return ListTile(
-                              onLongPress: () {
-                                Dialogs.bottomMaterialDialog(
-                                    
-                                    msg:
-                                        'Tem certeza que deseja excluir o livro de ${contact.livro}?',
-                                    title: 'Excluir Leitura',
-                                    context: context,
-                                    // ignore: deprecated_member_use
-                                    actions: [
-                                      IconsButton(
-                                        onPressed: () {
-                                          Navigator.popAndPushNamed(context, '/contact/updade', arguments: contact);
-                                        },
-                                        text: 'Editar',
-                                        iconData: Icons.edit,
-                                        textStyle: const TextStyle(
-                                            color: Colors.white),
-                                        iconColor: Colors.white,
-                                        color: Colors.orange,
-                                      ),
-                                      IconsButton(
-                                        onPressed: () async {
-                                          await context
-                                              .read<ContactListCubit>()
-                                              .deleteByModel(contact);
-                                          // ignore: use_build_context_synchronously
-                                          Navigator.pop(context);
-                                        },
-                                        text: 'Apagar',
-                                        iconData: Icons.delete,
-                                        color: Colors.red,
-                                        textStyle: const TextStyle(
-                                            color: Colors.white),
-                                        iconColor: Colors.white,
-                                      ),
-                                    ]);
-                              },
-                              onTap: () async {
-                                setState(() {
-                                  leituraCompleta = !leituraCompleta;
-                                  contact.leituraCompleta =
-                                      leituraCompleta; // Atualiza o estado do contato
-                                });
-
-                                await context.read<ContactListCubit>().save(
-                                    ContactsModel(
-                                        id: contact.id,
-                                        livro: contact.livro,
-                                        capituloInicio: contact.capituloInicio,
-                                        capituloFim: contact.capituloFim,
-                                        dataLeitura: contact.dataLeitura,
-                                        leituraCompleta: contact.leituraCompleta));
-                              },
-                              leading: Icon(
-                                leituraCompleta
-                                    ? Icons.bookmark_rounded
-                                    : Icons.bookmark_outline_sharp,
-                                color: leituraCompleta ? Colors.orange : null,
+                            return Container(
+                              margin: const EdgeInsets.only(bottom: 10, top: 10),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(10),
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 5,
+                                    blurRadius: 7,
+                                    offset: const Offset(
+                                        0, 3), // changes position of shadow
+                                  ),
+                                ],
                               ),
-                              title: Text(
-                                '${contact.dataLeitura.day.toString().padLeft(2, '0')}/${contact.dataLeitura.month.toString().padLeft(2, '0')} : ${ListDataController.diaDaSemana(contact.dataLeitura.weekday)}',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w300,
-                                  fontFamily: 'Poppins',
-                                  fontSize: 18,
+                              child: ListTile(
+                                onLongPress: () {
+                                  Dialogs.bottomMaterialDialog(
+                                      msg:
+                                          'Tem certeza que deseja excluir o livro de ${contact.livro}?',
+                                      title: 'Excluir Leitura',
+                                      context: context,
+                                      // ignore: deprecated_member_use
+                                      actions: [
+                                        IconsButton(
+                                          onPressed: () {
+                                            Navigator.popAndPushNamed(
+                                                context, '/contact/updade',
+                                                arguments: contact);
+                                          },
+                                          text: 'Editar',
+                                          iconData: Icons.edit,
+                                          textStyle: const TextStyle(
+                                              color: Colors.white),
+                                          iconColor: Colors.white,
+                                          color: Colors.orange,
+                                        ),
+                                        IconsButton(
+                                          onPressed: () async {
+                                            await context
+                                                .read<ContactListCubit>()
+                                                .deleteByModel(contact);
+                                            // ignore: use_build_context_synchronously
+                                            Navigator.pop(context);
+                                          },
+                                          text: 'Apagar',
+                                          iconData: Icons.delete,
+                                          color: Colors.red,
+                                          textStyle: const TextStyle(
+                                              color: Colors.white),
+                                          iconColor: Colors.white,
+                                        ),
+                                      ]);
+                                },
+                                onTap: () async {
+                                  setState(() {
+                                    leituraCompleta = !leituraCompleta;
+                                    contact.leituraCompleta =
+                                        leituraCompleta; // Atualiza o estado do contato
+                                  });
+
+                                  await context.read<ContactListCubit>().save(
+                                      ContactsModel(
+                                          id: contact.id,
+                                          livro: contact.livro,
+                                          capituloInicio:
+                                              contact.capituloInicio,
+                                          capituloFim: contact.capituloFim,
+                                          dataLeitura: contact.dataLeitura,
+                                          leituraCompleta:
+                                              contact.leituraCompleta));
+                                },
+                                leading: Icon(
+                                  leituraCompleta
+                                      ? Icons.bookmark_rounded
+                                      : Icons.bookmark_outline_sharp,
                                   color: leituraCompleta ? Colors.orange : null,
                                 ),
-                              ),
-                              subtitle: Text(
-                                'Ler ${contact.livro}  do capiluto ${contact.capituloInicio} ao ${contact.capituloFim}',
-                                style: TextStyle(
-                                  fontWeight: leituraCompleta
-                                      ? FontWeight.w300
-                                      : FontWeight.w500,
-                                  fontFamily: 'Poppins',
-                                  fontSize: 18,
+                                title: Text(
+                                  '${contact.dataLeitura.day.toString().padLeft(2, '0')}/${contact.dataLeitura.month.toString().padLeft(2, '0')} : ${ListDataController.diaDaSemana(contact.dataLeitura.weekday)}',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w300,
+                                    fontFamily: 'Poppins',
+                                    fontSize: 18,
+                                    color:
+                                        leituraCompleta ? Colors.orange : null,
+                                  ),
+                                ),
+                                subtitle: Text(
+                                  'Ler ${contact.livro}  do capiluto ${contact.capituloInicio} ao ${contact.capituloFim}',
+                                  style: TextStyle(
+                                    fontWeight: leituraCompleta
+                                        ? FontWeight.w300
+                                        : FontWeight.w500,
+                                    fontFamily: 'Poppins',
+                                    fontSize: 18,
+                                  ),
                                 ),
                               ),
                             );
