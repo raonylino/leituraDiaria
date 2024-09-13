@@ -33,8 +33,13 @@ class ContactsRepository {
   Future<void> update(ContactsModel model) async => 
   await supabase.from('leituras').update(model.toMap()).eq('id','${model.id}');
 
-  Future<void> updateLeitura(ContactsModel model) async =>
-  await supabase.from('leituras').update(model.toMap()).eq('id','${model.id}');
+  Future<void> updateLeitura(ContactsModel model) async {
+  await supabase
+      .from('leituras')
+      .update(model.toMap())
+      .eq('id', model.id as Object)
+      .eq('usuarios_id', model.usuarioId);
+}
 
   Future<void> delete(ContactsModel model) async =>
       await supabase.from('leituras').delete().eq('id','${model.id}');

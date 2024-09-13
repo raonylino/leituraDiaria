@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:material_dialogs/dialogs.dart';
 import 'package:material_dialogs/widgets/buttons/icon_button.dart';
 import 'package:oceans/main.dart';
@@ -27,15 +28,42 @@ class _ListPageState extends State<ListPage> {
           ),
         ),
         backgroundColor: const Color.fromRGBO(51, 80, 241, 1),
-        leading: IconButton(
+       leading: IconButton(
           icon: const Icon(
             Icons.logout_outlined,
             color: Colors.white,
           ),
           onPressed: () async {
-            await supabase.auth.signOut();
-            // ignore: use_build_context_synchronously
-            Navigator.of(context).pushReplacementNamed('/login');
+            Dialogs.bottomMaterialDialog(
+                msg:
+                    'Tem certeza que deseja sair do sistema?',
+                title: 'Logout',
+                context: context,
+                // ignore: deprecated_member_use
+                actions: [
+                  IconsButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    text: 'Não',
+                    iconData: Icons.close_rounded,
+                    textStyle: const TextStyle(color: Colors.white),
+                    iconColor: Colors.white,
+                    color: Colors.red,
+                  ),
+                  IconsButton(
+                    onPressed: () async {
+                      await supabase.auth.signOut();
+                      // ignore: use_build_context_synchronously
+                      Navigator.of(context).pushReplacementNamed('/login');
+                    },
+                    text: 'Sim',
+                    iconData: Icons.check_rounded,
+                    color: Colors.green,
+                    textStyle: const TextStyle(color: Colors.white),
+                    iconColor: Colors.white,
+                  ),
+                ]);
           },
         ),
         title: const Text(
@@ -168,6 +196,7 @@ class _ListPageState extends State<ListPage> {
 
                                   await context.read<ContactListCubit>().save(
                                       ContactsModel(
+                                          usuarioId: await SessionManager().get("id"),
                                           id: contact.id,
                                           livro: contact.livro,
                                           capituloInicio:

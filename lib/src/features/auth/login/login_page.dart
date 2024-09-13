@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:oceans/src/features/auth/login/controller_login.dart';
 import 'package:validatorless/validatorless.dart';
@@ -17,6 +16,7 @@ class _LoginPageState extends State<LoginPage> {
   final formKey = GlobalKey<FormState>();
   bool success = false;
   bool _isLoading = false;
+  bool obscurePassword = true;
 
   @override
   void dispose() {
@@ -99,21 +99,31 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       TextFormField(
-                        obscureText: true,
+                        obscureText: obscurePassword,
                         controller: passwordEC,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
-                          border: OutlineInputBorder(
+                          border: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(
                               Radius.circular(20),
                             ),
                           ),
                           hintText: 'Digite sua Senha',
-                          hintStyle: TextStyle(
+                          hintStyle: const TextStyle(
                             color: Colors.black38,
                             fontSize: 16,
                             fontFamily: 'Poppins',
+                          ),
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                obscurePassword = !obscurePassword;
+                              });
+                            },
+                            icon: obscurePassword
+                                ? const Icon(Icons.visibility)
+                                : const Icon(Icons.visibility_off),
                           ),
                         ),
                         validator: Validatorless.multiple([
@@ -153,13 +163,13 @@ class _LoginPageState extends State<LoginPage> {
                                         setState(() {
                                           _isLoading = false;
                                         });
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            const SnackBar(
-                                              content: Text(
-                                                  'Email ou Senha Incorreta'),
-                                            ),
-                                          );
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          const SnackBar(
+                                            content: Text(
+                                                'Email ou Senha Incorreta'),
+                                          ),
+                                        );
                                       }
                                     });
 
@@ -174,20 +184,11 @@ class _LoginPageState extends State<LoginPage> {
                                         setState(() {
                                           _isLoading = false;
                                         });
-
                                         if (success) {
                                           Navigator.of(context)
                                               .pushReplacementNamed(isadm
                                                   ? '/contact/list/admin'
                                                   : '/contact/list');
-                                        } else {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            const SnackBar(
-                                              content: Text(
-                                                  'Email ou Senha Incorreta'),
-                                            ),
-                                          );
                                         }
                                       },
                                     );

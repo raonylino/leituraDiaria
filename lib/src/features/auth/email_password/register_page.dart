@@ -16,6 +16,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final emailEC = TextEditingController();
   final passwordEC = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  bool obscurePassword = true;
 
   @override
   void dispose() {
@@ -27,6 +28,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     final sizeOF = MediaQuery.sizeOf(context);
+  
     return Scaffold(
       backgroundColor: Colors.blue,
       body: SingleChildScrollView(
@@ -98,7 +100,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
                       TextFormField(
-                        obscureText: true,
+                        obscureText: obscurePassword,
                         controller: passwordEC,
                         decoration: const InputDecoration(
                           filled: true,
@@ -134,20 +136,30 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
                       TextFormField(
-                        obscureText: true,
-                        decoration: const InputDecoration(
+                        obscureText: obscurePassword,
+                        decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
-                          border: OutlineInputBorder(
+                          border: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(
                               Radius.circular(20),
                             ),
                           ),
                           hintText: 'Digite sua Senha novamente',
-                          hintStyle: TextStyle(
+                          hintStyle: const TextStyle(
                             color: Colors.black38,
                             fontSize: 16,
                             fontFamily: 'Poppins',
+                          ),
+                             suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                obscurePassword = !obscurePassword;
+                              });
+                            },
+                            icon: obscurePassword
+                                ? const Icon(Icons.visibility)
+                                : const Icon(Icons.visibility_off),
                           ),
                         ),
                         validator: Validatorless.multiple([
@@ -158,6 +170,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           Validatorless.compare(
                               passwordEC, 'As senhas não conferem'),
                         ]),
+                        
                       ),
                       const SizedBox(
                         height: 20,

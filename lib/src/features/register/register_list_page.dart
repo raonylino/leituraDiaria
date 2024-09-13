@@ -102,7 +102,7 @@ class _RegisterListPageState extends State<RegisterListPage> {
                     child: TextFormField(
                       controller: _livroEC,
                       decoration: const InputDecoration(
-                        label: Text('Livro e dia da leitura'),
+                        label: Text('Digite o nome do livro'),
                         border: OutlineInputBorder(),
                       ),
                       validator: (String? value) {
@@ -205,7 +205,7 @@ class _RegisterListPageState extends State<RegisterListPage> {
                         ),
                       ),
                     ),
-                    onPressed: () {
+                    onPressed: () async {
                       final validate =
                           formKey.currentState?.validate() ?? false;
                       if (validate) {
@@ -215,6 +215,7 @@ class _RegisterListPageState extends State<RegisterListPage> {
                                 capituloInicio:int.parse(_capituloInicioEC.text),
                                 capituloFim: int.parse(_capituloFimEC.text),
                                 dataLeitura: DateTime.parse(_dataEC.text),
+                                 usuarioId:1,
                               ),
                             );
                       }

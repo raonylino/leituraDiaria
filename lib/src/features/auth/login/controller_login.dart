@@ -1,36 +1,51 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:oceans/main.dart';
 
 
-class ControllerLogin {
-  static Future<void> login(String email, String password, BuildContext context,
+
+class ControllerLogin  {
+ static Future<void> login(String email, String password, BuildContext context,
       Function(bool) onSuccess) async {
     try {
-      await supabase.auth.signUp(password: password, email: email);
-      onSuccess(true);
-      // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Login efetuado')),
-      );
+      final response = await supabase.auth.signInWithPassword(email: email, password: password);
+      
+      if (response.user != null) {
+        final userId = await supabase
+            .from('users')
+            .select('id')
+            .eq('email', email)
+            .single();
+         await supabase
+            .from('leituras')
+            .insert({'usuarios_id': userId['id']});
+        onSuccess(true);
+        
+        var sessionManager = SessionManager();
+        await sessionManager.set("id", userId['id']);
+        
+        // ignore: use_build_context_synchronously
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Login efetuado')),
+        );
+      } else {
+        throw Exception("Invalid login credentials");
+      }
     } catch (e) {
+      log('Erro ao fazer login: $e');
       if (context.mounted) {
-        if (e == 'user_not_found') {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Usuário não encontrado')),
-          );
-        } else if (e == 'wrong-password') {
+        if (e.toString().contains("Invalid login credentials")) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Senha incorreta')),
           );
-        }
-        if (e == 'email_not_confirmed') {
+        } else if (e.toString().contains("email_not_confirmed")) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Email não verificado')),
           );
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Erro ao fazer login')),
+            SnackBar(content: Text('Erro ao fazer login: $e')),
           );
         }
       }
@@ -47,13 +62,9 @@ class ControllerLogin {
         .select('is_adm')
         .eq('email', email)
         .single();
-    log('response: $response');
-
     if (response['is_adm'] == true) {
-      log('entrou no true');
       return state = true;
     }else{
-      log('entrou no false');
       return state = false;
     }
 

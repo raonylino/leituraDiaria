@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:material_dialogs/dialogs.dart';
 import 'package:material_dialogs/widgets/buttons/icon_button.dart';
 import 'package:oceans/main.dart';
@@ -10,12 +11,14 @@ import 'package:oceans/src/widgets/loader.dart';
 
 class ListUserPage extends StatefulWidget {
   const ListUserPage({super.key});
+  
 
   @override
   State<ListUserPage> createState() => _ListUserPageState();
 }
 
 class _ListUserPageState extends State<ListUserPage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +48,7 @@ class _ListUserPageState extends State<ListUserPage> {
                       Navigator.pop(context);
                     },
                     text: 'Não',
-                    iconData: Icons.edit,
+                    iconData: Icons.close_rounded,
                     textStyle: const TextStyle(color: Colors.white),
                     iconColor: Colors.white,
                     color: Colors.red,
@@ -57,7 +60,7 @@ class _ListUserPageState extends State<ListUserPage> {
                       Navigator.of(context).pushReplacementNamed('/login');
                     },
                     text: 'Sim',
-                    iconData: Icons.delete,
+                    iconData: Icons.check_rounded,
                     color: Colors.green,
                     textStyle: const TextStyle(color: Colors.white),
                     iconColor: Colors.white,
@@ -138,6 +141,7 @@ class _ListUserPageState extends State<ListUserPage> {
                                               contact.capituloInicio,
                                           capituloFim: contact.capituloFim,
                                           dataLeitura: contact.dataLeitura,
+                                          usuarioId: await SessionManager().get("id"),
                                           leituraCompleta:
                                               contact.leituraCompleta));
                                 },
