@@ -19,4 +19,7 @@ class ListDataController {
         return 'Número inválido';
     }
   }
+
+
+
 } 
