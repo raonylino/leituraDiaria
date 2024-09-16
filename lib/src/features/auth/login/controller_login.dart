@@ -3,28 +3,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:oceans/main.dart';
 
-
-
-class ControllerLogin  {
- static Future<void> login(String email, String password, BuildContext context,
+class ControllerLogin {
+  static Future<void> login(String email, String password, BuildContext context,
       Function(bool) onSuccess) async {
     try {
-      final response = await supabase.auth.signInWithPassword(email: email, password: password);
-      
+      final response = await supabase.auth
+          .signInWithPassword(email: email, password: password);
+
       if (response.user != null) {
         final userId = await supabase
             .from('users')
             .select('id')
             .eq('email', email)
             .single();
-         await supabase
-            .from('leituras')
-            .insert({'usuarios_id': userId['id']});
+        log('user: $userId');
+
+        await supabase.from('leituras')
+        .update({'usuario_id': userId['id']})
+        .gt('id',0);
+
         onSuccess(true);
-        
+
         var sessionManager = SessionManager();
         await sessionManager.set("id", userId['id']);
-        
+
         // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Login efetuado')),
@@ -64,9 +66,8 @@ class ControllerLogin  {
         .single();
     if (response['is_adm'] == true) {
       return state = true;
-    }else{
+    } else {
       return state = false;
     }
-
   }
 }

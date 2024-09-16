@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
@@ -205,6 +207,7 @@ class _ListPageState extends State<ListPage> {
                                           dataLeitura: contact.dataLeitura,
                                           leituraCompleta:
                                               contact.leituraCompleta));
+                                              log(contact.leituraCompleta.toString());
                                 },
                                 leading: Icon(
                                   leituraCompleta

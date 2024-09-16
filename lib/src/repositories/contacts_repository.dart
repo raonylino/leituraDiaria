@@ -37,8 +37,8 @@ class ContactsRepository {
   await supabase
       .from('leituras')
       .update(model.toMap())
-      .eq('id', model.id as Object)
-      .eq('usuarios_id', model.usuarioId);
+      .eq('id', model.id as Object);
+      
 }
 
   Future<void> delete(ContactsModel model) async =>
