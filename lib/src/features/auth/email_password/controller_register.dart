@@ -17,6 +17,7 @@ class ControllerRegister {
       if (user != null) {
         await supabase.from('users').insert([
           {
+            'user_id': user.id,
             'email': email,
             'is_adm': false,
           },

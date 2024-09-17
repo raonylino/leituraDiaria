@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:oceans/main.dart';
 
 class ControllerLogin {
@@ -16,12 +15,10 @@ class ControllerLogin {
             .select('user_id')
             .eq('email', email)
             .single();
+
         log('user: $userId');
 
         onSuccess(true);
-
-        var sessionManager = SessionManager();
-        await sessionManager.set("id", userId['id']);
 
         // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
