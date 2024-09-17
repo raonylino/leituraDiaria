@@ -6,7 +6,7 @@ import 'package:oceans/src/models/versiculo_model.dart';
 
 Future<Versiculo> fetchVersiculo() async {
   final response = await http.get(
-    Uri.parse('https://bolls.life/get-random-verse/YLT/'),
+    Uri.parse('https://bolls.life/get-random-verse/NVT/'),
   );
 
   log('Status Code: ${response.statusCode}');

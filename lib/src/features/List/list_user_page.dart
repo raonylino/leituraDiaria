@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:material_dialogs/dialogs.dart';
 import 'package:material_dialogs/widgets/buttons/icon_button.dart';
 import 'package:oceans/main.dart';
@@ -141,7 +140,7 @@ class _ListUserPageState extends State<ListUserPage> {
                                               contact.capituloInicio,
                                           capituloFim: contact.capituloFim,
                                           dataLeitura: contact.dataLeitura,
-                                          usuarioId: await SessionManager().get("id"),
+                            
                                           leituraCompleta:
                                               contact.leituraCompleta));
                                 },

@@ -231,7 +231,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     ),
                                   ),
                                   msg:
-                                      'Olá Oceaners, seu cadastro foi realizado com sucesso!',
+                                      'Olá Oceaners, confirme seu email para realizar o login!',
                                   msgAlign: TextAlign.center,
                                   msgStyle: const TextStyle(
                                     color: Colors.black,

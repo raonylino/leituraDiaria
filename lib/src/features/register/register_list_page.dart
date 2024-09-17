@@ -215,7 +215,7 @@ class _RegisterListPageState extends State<RegisterListPage> {
                                 capituloInicio:int.parse(_capituloInicioEC.text),
                                 capituloFim: int.parse(_capituloFimEC.text),
                                 dataLeitura: DateTime.parse(_dataEC.text),
-                                 usuarioId:1,
+                             
                               ),
                             );
                       }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:lottie/lottie.dart';
 
 class Loader<B extends StateStreamable<S>, S> extends StatelessWidget {
   final BlocWidgetSelector<S, bool> selector;
@@ -16,9 +16,14 @@ class Loader<B extends StateStreamable<S>, S> extends StatelessWidget {
             visible: loading,
             child: Expanded(
               child: Center(
-                child: LoadingAnimationWidget.inkDrop(                   
-                  color: Colors.blue,
-                  size: 50,
+                child: SizedBox(
+                  height: 300,
+                  width: 300,
+                  child: Lottie.asset(
+                    'assets/animations/loading.json',
+                    fit: BoxFit.cover,
+                    repeat: true,
+                  ),
                 ),
               ),
             ),

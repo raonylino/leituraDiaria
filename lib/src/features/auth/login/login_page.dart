@@ -29,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     final sizeOF = MediaQuery.sizeOf(context);
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: const Color.fromRGBO(33, 150, 243, 1),
       body: SingleChildScrollView(
         child: Form(
           key: formKey,

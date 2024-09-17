@@ -13,12 +13,15 @@ class ControllerRegister {
       );
       final User? user = res.user;
       log('user: $user');
-      await supabase.from('users').insert([
-    { 'email': email,
-      'is_adm': false,
-    },
-  ])
-  .select();
+      
+      if (user != null) {
+        await supabase.from('users').insert([
+          {
+            'email': email,
+            'is_adm': false,
+          },
+        ]).select();
+      }
 
     } catch (e) {
       const SnackBar(content: Text('Erro ao cadastrar usuario'));

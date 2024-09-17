@@ -1,8 +1,3 @@
-
-import 'dart:developer';
-
-import 'package:translator/translator.dart';
-
 class Versiculo {
   final int pk;
   final String translation;
@@ -35,14 +30,6 @@ class Versiculo {
       text: json['text'],
       livroNome: livroNome,
     );
-  }
-
-  Future<void> traduzirTexto() async {
-    final translator = GoogleTranslator();
-    final translation = await translator.translate(text, to: 'pt');
-    textoTraduzido = translation.text.toString();
-
-    log('textoTraduzido: $textoTraduzido');
   }
 
   static const Map<int, String> livrosDaBiblia = {

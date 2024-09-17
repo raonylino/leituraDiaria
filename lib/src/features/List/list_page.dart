@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:circular_menu/circular_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:lottie/lottie.dart';
 import 'package:material_dialogs/dialogs.dart';
 import 'package:material_dialogs/widgets/buttons/icon_button.dart';
@@ -27,24 +26,32 @@ class _ListPageState extends State<ListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 60,
-        shadowColor: Colors.black26,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(20),
-          ),
+      backgroundColor: Colors.white,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(80.0),
+        child: Stack(
+          children: [
+            // Animação Lottie de fundo
+            Lottie.asset(
+              'assets/animations/borderAnimation.json', // Substitua pelo caminho do seu arquivo Lottie
+              fit: BoxFit.cover,
+              width: double.infinity,
+            ),
+            AppBar(
+              toolbarHeight: 80,
+              backgroundColor: Colors.transparent,
+              title: const Text(
+                'Leitura Biblica Diária',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontFamily: 'Poppins',
+                ),
+              ),
+              centerTitle: true,
+            ),
+          ],
         ),
-        backgroundColor: const Color.fromRGBO(51, 80, 241, 1),
-        title: const Text(
-          'Leitura Biblica Diária',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 24,
-            fontFamily: 'Poppins',
-          ),
-        ),
-        centerTitle: true,
       ),
       floatingActionButton: CircularMenu(
         alignment: Alignment.bottomRight,
@@ -95,7 +102,12 @@ class _ListPageState extends State<ListPage> {
         ],
       ),
       body: Container(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.only(
+          top: 50,
+          left: 10,
+          right: 10,
+          bottom: 10,
+        ),
         child: RefreshIndicator(
           onRefresh: () => context.read<ContactListCubit>().findAll(),
           child: CustomScrollView(
@@ -106,7 +118,7 @@ class _ListPageState extends State<ListPage> {
                     Container(
                       margin: const EdgeInsets.only(bottom: 10, top: 10),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: const Color.fromRGBO(21, 39, 65, 1),
                         borderRadius: const BorderRadius.all(
                           Radius.circular(10),
                         ),
@@ -120,55 +132,78 @@ class _ListPageState extends State<ListPage> {
                           ),
                         ],
                       ),
-                      child: Column(children: [
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
                         SizedBox(
-                          height: 150,
+                          height: 100,
                           child: Lottie.asset(
                             'assets/animations/reading.json',
                             fit: BoxFit.cover,
+                            frameRate: FrameRate.composition,
                           ),
                         ),
-                        const Text('Palavra do dia:',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontFamily: 'Poppins',
-                            )),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Center(
-                            child: FutureBuilder<Versiculo>(
-                              future: fetchVersiculo(),
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return const CircularProgressIndicator();
-                                } else if (snapshot.hasError) {
-                                  log(snapshot.error.toString());
-                                  return Text('Erro: ${snapshot.error}');
-                                } else if (snapshot.hasData) {
-                                  return Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                    const SizedBox(height: 10),
-                                      Text(
-                                        snapshot.data!.traduzirTexto().toString(),	
-                                        style: const TextStyle(fontSize: 16),
-                                      ),
-                                      Text(
-                                        '${snapshot.data!.livroNome}: ${snapshot.data!.chapter}- ${snapshot.data!.verse}',
-                                        style: const TextStyle(fontSize: 18),
-                                        textAlign: TextAlign.right,
-                                      ),
-                                  
-                                    ],
-                                  );
-                                } else {
-                                  return const Text('Nenhum dado encontrado');
-                                }
-                              },
-                            ),
-                          ),
+                        SizedBox(
+                          height: 150,
+                          width: 200,
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text('Palavra do dia:',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      fontFamily: 'Poppins',
+                                    )),
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Center(
+                                    child: FutureBuilder<Versiculo>(
+                                      future: fetchVersiculo(),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.connectionState ==
+                                            ConnectionState.waiting) {
+                                          return const CircularProgressIndicator();
+                                        } else if (snapshot.hasError) {
+                                          log(snapshot.error.toString());
+                                          return Text(
+                                              'Erro: ${snapshot.error}');
+                                        } else if (snapshot.hasData) {
+                                          return Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              const SizedBox(height: 2),
+                                              Text(
+                                                '${snapshot.data!.text.toString().substring(0, 60)}...',
+                                                style: const TextStyle(
+                                                    fontSize: 14,
+                                                    color: Colors.white54,
+                                                    ),
+                                                softWrap: true,
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 1,
+                                              ),
+                                              Text(
+                                                '${snapshot.data!.livroNome}: ${snapshot.data!.chapter}- ${snapshot.data!.verse}',
+                                                style: const TextStyle(
+                                                    fontSize: 12,
+                                                    fontFamily: 'Poppins-italic',
+                                                    color: Colors.white54,
+                                                    ),
+                                                textAlign: TextAlign.right,
+                                              ),
+                                            ],
+                                          );
+                                        } else {
+                                          return const Text(
+                                              'Nenhum dado encontrado');
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                )
+                              ]),
                         )
                       ]),
                     ),
@@ -258,8 +293,6 @@ class _ListPageState extends State<ListPage> {
 
                                   await context.read<ContactListCubit>().save(
                                       ContactsModel(
-                                          usuarioId:
-                                              await SessionManager().get("id"),
                                           id: contact.id,
                                           livro: contact.livro,
                                           capituloInicio:

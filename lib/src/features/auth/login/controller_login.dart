@@ -13,14 +13,10 @@ class ControllerLogin {
       if (response.user != null) {
         final userId = await supabase
             .from('users')
-            .select('id')
+            .select('user_id')
             .eq('email', email)
             .single();
         log('user: $userId');
-
-        await supabase.from('leituras')
-        .update({'usuario_id': userId['id']})
-        .gt('id',0);
 
         onSuccess(true);
 
