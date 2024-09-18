@@ -55,7 +55,9 @@ dependencies:
   flutter_dotenv: ^5.1.0
   circular_menu: ^4.0.0
   http: ^1.2.2
-  translator: ^1.0.0
+  convex_bottom_bar: ^3.2.0
+
+
 
 dev_dependencies:
   flutter_test:

@@ -4,10 +4,8 @@ import 'package:oceans/src/models/contacts_model.dart';
 class ContactsRepository {
   Future<List<ContactsModel>> findAll() async {
     try {
-    final response = await supabase.from('leituras')
-    .select('*, leituras_users!inner(*)')
-    .eq('leituras_users.user_id', supabase.auth.currentUser!.id);
-
+    final response = await supabase.from('livros')
+    .select();
       List<Map<String, dynamic>> data =
           List<Map<String, dynamic>>.from(response);
 

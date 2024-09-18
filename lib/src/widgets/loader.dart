@@ -14,16 +14,14 @@ class Loader<B extends StateStreamable<S>, S> extends StatelessWidget {
         builder: (context, loading) {
           return Visibility(
             visible: loading,
-            child: Expanded(
-              child: Center(
-                child: SizedBox(
-                  height: 300,
-                  width: 300,
-                  child: Lottie.asset(
-                    'assets/animations/loading.json',
-                    fit: BoxFit.cover,
-                    repeat: true,
-                  ),
+            child: Center(
+              child: SizedBox(
+                height: 300,
+                width: 300,
+                child: Lottie.asset(
+                  'assets/animations/loading.json',
+                  fit: BoxFit.cover,
+                  repeat: true,
                 ),
               ),
             ),

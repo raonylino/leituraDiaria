@@ -10,14 +10,6 @@ class ControllerLogin {
           .signInWithPassword(email: email, password: password);
 
       if (response.user != null) {
-        final userId = await supabase
-            .from('users')
-            .select('user_id')
-            .eq('email', email)
-            .single();
-
-        log('user: $userId');
-
         onSuccess(true);
 
         // ignore: use_build_context_synchronously
