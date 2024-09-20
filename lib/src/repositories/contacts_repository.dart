@@ -24,25 +24,25 @@ class ContactsRepository {
 
   Future<void> create(ContactsModel model) async {
     try {
-      await supabase.from('leituras').insert(model.toMap());
+      await supabase.from('livros').insert(model.toMap());
     } catch (e) {
       throw Exception('Erro ao criar contato: $e');
     }
   }
 
   Future<void> update(ContactsModel model) async => 
-  await supabase.from('leituras').update(model.toMap()).eq('id','${model.id}');
+  await supabase.from('livros').update(model.toMap()).eq('id','${model.id}');
 
   Future<void> updateLeitura(ContactsModel model) async {
   await supabase
-      .from('leituras')
+      .from('livros')
       .update(model.toMap())
       .eq('id', model.id as Object);
       
 }
 
   Future<void> delete(ContactsModel model) async =>
-      await supabase.from('leituras').delete().eq('id','${model.id}');
+      await supabase.from('livros').delete().eq('id','${model.id}');
 }
 
 

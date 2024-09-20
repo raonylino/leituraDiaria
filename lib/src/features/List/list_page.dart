@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:material_dialogs/dialogs.dart';
 import 'package:material_dialogs/widgets/buttons/icon_button.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:oceans/main.dart';
 import 'package:oceans/src/features/List/cubit/contact_list_cubit.dart';
 import 'package:oceans/src/features/List/fetchVersiculo.dart';
@@ -70,7 +71,8 @@ class _ListPageState extends State<ListPage> {
                   actions: [
                     IconsButton(
                       onPressed: () {
-                        Navigator.of(context).popAndPushNamed('/contact/list/admin');	
+                        Navigator.of(context)
+                            .popAndPushNamed('/contact/list/admin');
                       },
                       text: 'Não',
                       iconData: Icons.close_rounded,
@@ -92,15 +94,13 @@ class _ListPageState extends State<ListPage> {
                     ),
                   ]);
             } else if (i == 1) {
-               Navigator.of(context).popAndPushNamed('/contact/list/admin');	
-      
+              Navigator.of(context).popAndPushNamed('/contact/list/admin');
             } else if (i == 2) {
               await Navigator.pushNamed(context, '/contact/register');
               // ignore: use_build_context_synchronously
               context.read<ContactListCubit>().findAll();
             }
           }),
-
       body: Container(
         padding: const EdgeInsets.only(
           top: 50,
@@ -133,6 +133,7 @@ class _ListPageState extends State<ListPage> {
                         ],
                       ),
                       child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             SizedBox(
@@ -173,18 +174,6 @@ class _ListPageState extends State<ListPage> {
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
                                                 children: [
-                                                  const SizedBox(height: 2),
-                                                  Text(
-                                                    '${snapshot.data!.text.toString().substring(0, 60)}...',
-                                                    style: const TextStyle(
-                                                      fontSize: 14,
-                                                      color: Colors.white54,
-                                                    ),
-                                                    softWrap: true,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    maxLines: 1,
-                                                  ),
                                                   Text(
                                                     '${snapshot.data!.livroNome}: ${snapshot.data!.chapter}- ${snapshot.data!.verse}',
                                                     style: const TextStyle(
@@ -194,6 +183,122 @@ class _ListPageState extends State<ListPage> {
                                                       color: Colors.white54,
                                                     ),
                                                     textAlign: TextAlign.right,
+                                                  ),
+                                                  TextButton(
+                                                    onPressed: () async {
+                                                      showMaterialModalBottomSheet(
+                                                        backgroundColor:
+                                                            Colors.transparent,
+                                                    
+                                                        context: context,
+                                                        builder: (context) =>
+                                                            Container(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(20),
+                                                          height: 300,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: const Color
+                                                                .fromRGBO(
+                                                                21, 39, 65, 1),
+                                                            borderRadius:
+                                                                const BorderRadius
+                                                                    .only(
+                                                              topLeft: Radius
+                                                                  .circular(20),
+                                                              topRight: Radius
+                                                                  .circular(20),
+                                                            ),
+                                                            boxShadow: [
+                                                              BoxShadow(
+                                                                color: const Color
+                                                                .fromRGBO(
+                                                                21, 39, 65, 1)
+                                                                    .withOpacity(
+                                                                        0.5),
+                                                                spreadRadius: 5,
+                                                                blurRadius: 7,
+                                                                offset: const Offset(
+                                                                    0,
+                                                                    3), // changes position of shadow
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          child: Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .stretch,
+                                                            children: [
+                                                              const Text(
+                                                                'Palavra do dia:',
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 20,
+                                                                  fontFamily:
+                                                                      'Poppins-italic',
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
+                                                              ),
+                                                              const SizedBox(
+                                                                  height: 10),
+                                                              Text(
+                                                                snapshot
+                                                                    .data!.text
+                                                                    .replaceAll(
+                                                                        '<br>',
+                                                                        '\n'),
+                                                                style:
+                                                                    const TextStyle(
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                  fontFamily:
+                                                                      'Poppins-italic',
+                                                                  color: Colors
+                                                                      .white54,
+                                                                ),
+                                                                softWrap:
+                                                                    true, 
+                                                              ),
+                                                              const SizedBox(
+                                                                  height: 10),
+                                                              Text(
+                                                                '${snapshot.data!.livroNome}: ${snapshot.data!.chapter}- ${snapshot.data!.verse}',
+                                                                style:
+                                                                    const TextStyle(
+                                                                  fontSize: 16,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                  fontFamily:
+                                                                      'Poppins-italic',
+                                                                  color: Colors
+                                                                      .white54,
+                                                                ),
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .right,
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                    child: const Text(
+                                                      'Clique para espandir',
+                                                      style: TextStyle(
+                                                        fontSize: 12,
+                                                        fontFamily:
+                                                            'Poppins-italic',
+                                                        color: Colors.white54,
+                                                      ),
+                                                    ),
                                                   ),
                                                 ],
                                               );

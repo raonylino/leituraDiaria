@@ -56,6 +56,8 @@ dependencies:
   circular_menu: ^4.0.0
   http: ^1.2.2
   convex_bottom_bar: ^3.2.0
+  modal_bottom_sheet: ^3.0.0
+
 
 
 

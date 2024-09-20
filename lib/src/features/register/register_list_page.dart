@@ -37,7 +37,7 @@ class _RegisterListPageState extends State<RegisterListPage> {
           icon:
               const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
           onPressed: () {
-            Navigator.of(context).popAndPushNamed('/contact/list/admin');	
+            Navigator.of(context).popAndPushNamed('/contact/list/admin');
           },
         ),
         title: const Text(
@@ -87,7 +87,7 @@ class _RegisterListPageState extends State<RegisterListPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      height: sizeOF.height * .55,
+                      height: sizeOF.height * .5,
                       margin: const EdgeInsets.only(bottom: 10, top: 10),
                       decoration: BoxDecoration(
                         color: const Color.fromRGBO(21, 39, 65, 1),
@@ -130,10 +130,10 @@ class _RegisterListPageState extends State<RegisterListPage> {
                                 filled: true,
                                 fillColor: Colors.white,
                                 hintText: 'Digite o nome do livro',
-                                 hintStyle: TextStyle(
-                                        color: Colors.black45,
-                                      ),
-                               border: OutlineInputBorder(),
+                                hintStyle: TextStyle(
+                                  color: Colors.black45,
+                                ),
+                                border: OutlineInputBorder(),
                               ),
                               validator: (String? value) {
                                 if (value == null || value.isEmpty) {
@@ -168,7 +168,7 @@ class _RegisterListPageState extends State<RegisterListPage> {
                                     decoration: const InputDecoration(
                                       filled: true,
                                       fillColor: Colors.white,
-                                     hintText:'Inicio',
+                                      hintText: 'Inicio',
                                       hintStyle: TextStyle(
                                         color: Colors.black45,
                                       ),
@@ -190,7 +190,7 @@ class _RegisterListPageState extends State<RegisterListPage> {
                                     decoration: const InputDecoration(
                                       filled: true,
                                       fillColor: Colors.white,
-                                      hintText:'Fim',
+                                      hintText: 'Fim',
                                       hintStyle: TextStyle(
                                         color: Colors.black45,
                                       ),
@@ -274,13 +274,13 @@ class _RegisterListPageState extends State<RegisterListPage> {
                               ),
                             ),
                           ),
-                          Loader<RegisterListCubit, RegisterListState>(
-                            selector: (state) => state.maybeWhen(
-                              loading: () => true,
-                              orElse: () => false,
-                            ),
-                          ),
                         ],
+                      ),
+                    ),
+                    Loader<RegisterListCubit, RegisterListState>(
+                      selector: (state) => state.maybeWhen(
+                        loading: () => true,
+                        orElse: () => false,
                       ),
                     ),
                   ],
