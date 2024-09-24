@@ -13,7 +13,7 @@ import 'package:oceans/src/features/List/list_data_controller.dart';
 import 'package:oceans/src/models/contacts_model.dart';
 import 'package:oceans/src/models/versiculo_model.dart';
 import 'package:oceans/src/widgets/loader.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+
 
 class ListPage extends StatefulWidget {
   const ListPage({super.key});

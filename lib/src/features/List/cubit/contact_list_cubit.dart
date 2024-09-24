@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:oceans/src/models/contacts_model.dart';
-import 'package:oceans/src/models/leitura_usuarios_model.dart';
 import 'package:oceans/src/repositories/contacts_repository.dart';
 part 'contact_list_state.dart';
 part 'contact_list_cubit.freezed.dart';
