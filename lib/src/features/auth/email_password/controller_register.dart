@@ -13,7 +13,7 @@ class ControllerRegister {
       );
       final User? user = res.user;
       log('user: $user');
-      
+      // fazer um fuction para alterar esse metodo de cadastro
       if (user != null) {
         await supabase.from('users').insert([
           {

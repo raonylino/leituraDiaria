@@ -13,6 +13,7 @@ import 'package:oceans/src/features/List/list_data_controller.dart';
 import 'package:oceans/src/models/contacts_model.dart';
 import 'package:oceans/src/models/versiculo_model.dart';
 import 'package:oceans/src/widgets/loader.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ListPage extends StatefulWidget {
   const ListPage({super.key});
@@ -189,7 +190,6 @@ class _ListPageState extends State<ListPage> {
                                                       showMaterialModalBottomSheet(
                                                         backgroundColor:
                                                             Colors.transparent,
-                                                    
                                                         context: context,
                                                         builder: (context) =>
                                                             Container(
@@ -213,8 +213,11 @@ class _ListPageState extends State<ListPage> {
                                                             boxShadow: [
                                                               BoxShadow(
                                                                 color: const Color
-                                                                .fromRGBO(
-                                                                21, 39, 65, 1)
+                                                                        .fromRGBO(
+                                                                        21,
+                                                                        39,
+                                                                        65,
+                                                                        1)
                                                                     .withOpacity(
                                                                         0.5),
                                                                 spreadRadius: 5,
@@ -263,8 +266,7 @@ class _ListPageState extends State<ListPage> {
                                                                   color: Colors
                                                                       .white54,
                                                                 ),
-                                                                softWrap:
-                                                                    true, 
+                                                                softWrap: true,
                                                               ),
                                                               const SizedBox(
                                                                   height: 10),
@@ -367,8 +369,8 @@ class _ListPageState extends State<ListPage> {
                                                 context, '/contact/updade',
                                                 arguments: contact);
                                           },
-                                          text: 'Editar',
-                                          iconData: Icons.edit,
+                                          text: 'Cancelar',
+                                          iconData: Icons.backspace_rounded,
                                           textStyle: const TextStyle(
                                               color: Colors.white),
                                           iconColor: Colors.white,
@@ -379,8 +381,6 @@ class _ListPageState extends State<ListPage> {
                                             await context
                                                 .read<ContactListCubit>()
                                                 .deleteByModel(contact);
-                                            // ignore: use_build_context_synchronously
-                                            Navigator.pop(context);
                                           },
                                           text: 'Apagar',
                                           iconData: Icons.delete,
@@ -397,7 +397,7 @@ class _ListPageState extends State<ListPage> {
                                     contact.leituraCompleta =
                                         leituraCompleta; // Atualiza o estado do contato
                                   });
-
+                    
                                   await context.read<ContactListCubit>().save(
                                       ContactsModel(
                                           id: contact.id,
@@ -408,7 +408,7 @@ class _ListPageState extends State<ListPage> {
                                           dataLeitura: contact.dataLeitura,
                                           leituraCompleta:
                                               contact.leituraCompleta));
-                                  log(contact.leituraCompleta.toString());
+                                  log('Contato salvo: ${supabase.auth.currentUser!.isAnonymous}');
                                 },
                                 leading: Icon(
                                   leituraCompleta

@@ -15,16 +15,15 @@ import 'package:oceans/src/models/contacts_model.dart';
 import 'package:oceans/src/models/versiculo_model.dart';
 import 'package:oceans/src/widgets/loader.dart';
 
+
 class ListUserPage extends StatefulWidget {
   const ListUserPage({super.key});
-  
 
   @override
   State<ListUserPage> createState() => _ListUserPageState();
 }
 
 class _ListUserPageState extends State<ListUserPage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,9 +97,7 @@ class _ListUserPageState extends State<ListUserPage> {
                   ]);
             } else if (i == 1) {
               Navigator.of(context).popAndPushNamed('/contact/list');
-            } else if (i == 2) {
-    
-            }
+            } else if (i == 2) {}
           }),
       body: Container(
         padding: const EdgeInsets.only(
@@ -190,7 +187,6 @@ class _ListUserPageState extends State<ListUserPage> {
                                                       showMaterialModalBottomSheet(
                                                         backgroundColor:
                                                             Colors.transparent,
-                                                    
                                                         context: context,
                                                         builder: (context) =>
                                                             Container(
@@ -214,8 +210,11 @@ class _ListUserPageState extends State<ListUserPage> {
                                                             boxShadow: [
                                                               BoxShadow(
                                                                 color: const Color
-                                                                .fromRGBO(
-                                                                21, 39, 65, 1)
+                                                                        .fromRGBO(
+                                                                        21,
+                                                                        39,
+                                                                        65,
+                                                                        1)
                                                                     .withOpacity(
                                                                         0.5),
                                                                 spreadRadius: 5,
@@ -264,8 +263,7 @@ class _ListUserPageState extends State<ListUserPage> {
                                                                   color: Colors
                                                                       .white54,
                                                                 ),
-                                                                softWrap:
-                                                                    true, 
+                                                                softWrap: true,
                                                               ),
                                                               const SizedBox(
                                                                   height: 10),
@@ -334,7 +332,7 @@ class _ListUserPageState extends State<ListUserPage> {
                           itemCount: contacts.length,
                           itemBuilder: (context, index) {
                             final contact = contacts[index];
-                            bool leituraCompleta = contact.leituraCompleta;
+                            bool leituraCompleta =  contact.leituraCompleta;
                             return Container(
                               margin:
                                   const EdgeInsets.only(bottom: 10, top: 10),
@@ -358,9 +356,8 @@ class _ListUserPageState extends State<ListUserPage> {
                                   setState(() {
                                     leituraCompleta = !leituraCompleta;
                                     contact.leituraCompleta =
-                                        leituraCompleta; // Atualiza o estado do contato
+                                        leituraCompleta; 
                                   });
-
                                   await context.read<ContactListCubit>().save(
                                       ContactsModel(
                                           id: contact.id,
@@ -371,7 +368,7 @@ class _ListUserPageState extends State<ListUserPage> {
                                           dataLeitura: contact.dataLeitura,
                                           leituraCompleta:
                                               contact.leituraCompleta));
-                                  log(contact.leituraCompleta.toString());
+                                  log('Contato salvo: ${supabase.auth.currentUser!.isAnonymous}');
                                 },
                                 leading: Icon(
                                   leituraCompleta
