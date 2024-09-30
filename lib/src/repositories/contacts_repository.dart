@@ -6,11 +6,9 @@ import 'package:oceans/src/models/contacts_model.dart';
 class ContactsRepository {
   Future<List<ContactsModel>> findAll() async {
     try {
-
-     final response =  await supabase.rpc('get_livros_lidos',
-     params: {'user_id' : supabase.auth.currentUser!.id}
-     ).select();
-    log('RPC: $response');
+      final response = await supabase.rpc('get_livros_lidos',
+          params: {'user_id': supabase.auth.currentUser!.id}).select();
+      log('response: $response');
       // // final response = await supabase.from('livros').select();
       List<Map<String, dynamic>> data =
           List<Map<String, dynamic>>.from(response);
@@ -41,10 +39,21 @@ class ContactsRepository {
       .eq('id', '${model.id}');
 
   Future<void> updateLeitura(ContactsModel model) async {
-    await supabase
-        .from('livros')
-        .update(model.toMap())
-        .eq('id', model.id as Object);
+    try {
+      await supabase.from('leituras_usuarios').insert({
+        'usuario_id': supabase.auth.currentUser!.id,
+        'leitura_id': model.id
+      });
+    } catch (e) {
+      log('Erro geral: $e');
+    }
+  }
+
+  Future<void> deleteLeitura(ContactsModel model) async {
+    await supabase.from('leituras_usuarios').delete().match({
+      'usuario_id': supabase.auth.currentUser!.id,
+      'leitura_id': model.id as int
+    });
   }
 
   Future<void> delete(ContactsModel model) async =>

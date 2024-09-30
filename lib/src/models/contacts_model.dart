@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class ContactsModel {
-  final int? id; // Alterado para int
+  final int? id; 
   final String livro;
   final int capituloInicio;
   final int capituloFim;
@@ -29,12 +29,12 @@ class ContactsModel {
 
 factory ContactsModel.fromMap(Map<String, dynamic> map) {
   return ContactsModel(
-    id: map['id'] != null ? map['id'] as int : null,
-    livro: map['livro'] != null ? map['livro'] as String : '',
-    capituloInicio: map['capituloInicio'] != null ? map['capituloInicio'] as int : 0,
-    capituloFim: map['capituloFim'] != null ? map['capituloFim'] as int : 0,
-    dataLeitura: map['dataLeitura'] != null ? DateTime.parse(map['dataLeitura'] as String) : DateTime.now(),
-    leituraCompleta: map['leituraCompleta'] != null ? map['leituraCompleta'] as bool : false,
+    id: map['livro_id'] != null ? map['livro_id'] as int : null,
+    livro: map['titulo'] != null ? map['titulo'] as String : '',
+    capituloInicio: map['inicio'] != null ? map['inicio'] as int : 0,
+    capituloFim: map['fim'] != null ? map['fim'] as int : 0,
+    dataLeitura: map['data'] != null ? DateTime.parse(map['data'] as String) : DateTime.now(),
+    leituraCompleta: map['lido'] != null ? map['lido'] as bool : false,
   );
 }
 

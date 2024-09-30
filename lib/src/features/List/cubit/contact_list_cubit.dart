@@ -36,6 +36,15 @@ class ContactListCubit extends Cubit<ContactListState> {
       emit(const ContactListState.error('Erro ao salvar Versiculos'));
     }
   }
+   Future<void> deleteLeitura(ContactsModel model) async {
+    try {
+      await _repository.deleteLeitura(model);
+      findAll();
+    } catch (e,s) {
+      log('Erro ao salvar Versiculos', error: e , stackTrace: s);
+      emit(const ContactListState.error('Erro ao salvar Versiculos'));
+    }
+  }
   
     Future<void> deleteByModel(ContactsModel model) async {
     try {

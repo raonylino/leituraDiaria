@@ -38,6 +38,12 @@ class _ListPageState extends State<ListPage> {
               width: double.infinity,
             ),
             AppBar(
+                  leading:Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Image.asset(
+                                    'assets/images/logo_ad.png',
+                                  ),
+                  ),
               toolbarHeight: 80,
               backgroundColor: Colors.transparent,
               title: const Text(
@@ -397,8 +403,8 @@ class _ListPageState extends State<ListPage> {
                                     contact.leituraCompleta =
                                         leituraCompleta; // Atualiza o estado do contato
                                   });
-                    
-                                  await context.read<ContactListCubit>().save(
+                                  if (leituraCompleta) {
+                                            await context.read<ContactListCubit>().save(
                                       ContactsModel(
                                           id: contact.id,
                                           livro: contact.livro,
@@ -408,7 +414,20 @@ class _ListPageState extends State<ListPage> {
                                           dataLeitura: contact.dataLeitura,
                                           leituraCompleta:
                                               contact.leituraCompleta));
-                                  log('Contato salvo: ${supabase.auth.currentUser!.isAnonymous}');
+                                  }else{
+                                            await context.read<ContactListCubit>().deleteLeitura(
+                                      ContactsModel(
+                                          id: contact.id,
+                                          livro: contact.livro,
+                                          capituloInicio:
+                                              contact.capituloInicio,
+                                          capituloFim: contact.capituloFim,
+                                          dataLeitura: contact.dataLeitura,
+                                          leituraCompleta:
+                                              contact.leituraCompleta));
+                                  }
+
+
                                 },
                                 leading: Icon(
                                   leituraCompleta

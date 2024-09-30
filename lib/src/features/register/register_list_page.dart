@@ -252,6 +252,7 @@ class _RegisterListPageState extends State<RegisterListPage> {
                               final validate =
                                   formKey.currentState?.validate() ?? false;
                               if (validate) {
+                                FocusScope.of(context).requestFocus(FocusNode());
                                 context.read<RegisterListCubit>().register(
                                       ContactsModel(
                                         livro: _livroEC.text,

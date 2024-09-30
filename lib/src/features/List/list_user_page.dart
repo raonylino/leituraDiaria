@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,7 +13,6 @@ import 'package:oceans/src/features/List/list_data_controller.dart';
 import 'package:oceans/src/models/contacts_model.dart';
 import 'package:oceans/src/models/versiculo_model.dart';
 import 'package:oceans/src/widgets/loader.dart';
-
 
 class ListUserPage extends StatefulWidget {
   const ListUserPage({super.key});
@@ -39,6 +37,9 @@ class _ListUserPageState extends State<ListUserPage> {
               width: double.infinity,
             ),
             AppBar(
+              leading:Image.asset(
+                 'assets/images/logo_ad.png',
+              ),
               toolbarHeight: 80,
               backgroundColor: Colors.transparent,
               title: const Text(
@@ -332,7 +333,7 @@ class _ListUserPageState extends State<ListUserPage> {
                           itemCount: contacts.length,
                           itemBuilder: (context, index) {
                             final contact = contacts[index];
-                            bool leituraCompleta =  contact.leituraCompleta;
+                            bool leituraCompleta = contact.leituraCompleta;
                             return Container(
                               margin:
                                   const EdgeInsets.only(bottom: 10, top: 10),
@@ -356,19 +357,32 @@ class _ListUserPageState extends State<ListUserPage> {
                                   setState(() {
                                     leituraCompleta = !leituraCompleta;
                                     contact.leituraCompleta =
-                                        leituraCompleta; 
+                                        leituraCompleta; // Atualiza o estado do contato
                                   });
-                                  await context.read<ContactListCubit>().save(
-                                      ContactsModel(
-                                          id: contact.id,
-                                          livro: contact.livro,
-                                          capituloInicio:
-                                              contact.capituloInicio,
-                                          capituloFim: contact.capituloFim,
-                                          dataLeitura: contact.dataLeitura,
-                                          leituraCompleta:
-                                              contact.leituraCompleta));
-                                  log('Contato salvo: ${supabase.auth.currentUser!.isAnonymous}');
+                                  if (leituraCompleta) {
+                                    await context.read<ContactListCubit>().save(
+                                        ContactsModel(
+                                            id: contact.id,
+                                            livro: contact.livro,
+                                            capituloInicio:
+                                                contact.capituloInicio,
+                                            capituloFim: contact.capituloFim,
+                                            dataLeitura: contact.dataLeitura,
+                                            leituraCompleta:
+                                                contact.leituraCompleta));
+                                  } else {
+                                    await context
+                                        .read<ContactListCubit>()
+                                        .deleteLeitura(ContactsModel(
+                                            id: contact.id,
+                                            livro: contact.livro,
+                                            capituloInicio:
+                                                contact.capituloInicio,
+                                            capituloFim: contact.capituloFim,
+                                            dataLeitura: contact.dataLeitura,
+                                            leituraCompleta:
+                                                contact.leituraCompleta));
+                                  }
                                 },
                                 leading: Icon(
                                   leituraCompleta
