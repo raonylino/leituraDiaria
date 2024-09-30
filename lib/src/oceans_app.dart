@@ -5,6 +5,7 @@ import 'package:oceans/src/features/List/list_page.dart';
 import 'package:oceans/src/features/List/list_user_page.dart';
 import 'package:oceans/src/features/auth/email_password/register_page.dart';
 import 'package:oceans/src/features/auth/login/login_page.dart';
+import 'package:oceans/src/features/notice/list_notice_page.dart';
 import 'package:oceans/src/features/register/cubit/register_list_cubit.dart';
 import 'package:oceans/src/features/register/register_list_page.dart';
 import 'package:oceans/src/features/splash/splash_page.dart';
@@ -53,6 +54,8 @@ class OceansApp extends StatelessWidget {
           '/contact/update': (_) => const UpdateUpdatePage(),
 
           '/auth/email_password/register': (_) => const RegisterPage(),
+
+          '/notice/list': (_) => const ListNoticePage(),
         },
       ),
     );

@@ -30,9 +30,8 @@ class _ListUserPageState extends State<ListUserPage> {
         preferredSize: const Size.fromHeight(80.0),
         child: Stack(
           children: [
-            // Animação Lottie de fundo
             Lottie.asset(
-              'assets/animations/borderAnimation.json', // Substitua pelo caminho do seu arquivo Lottie
+              'assets/animations/borderAnimation.json',
               fit: BoxFit.cover,
               width: double.infinity,
             ),
@@ -56,8 +55,8 @@ class _ListUserPageState extends State<ListUserPage> {
         ),
       ),
       bottomNavigationBar: ConvexAppBar(
-          style: TabStyle.react,
-          backgroundColor: const Color.fromRGBO(51, 80, 241, 1),
+          style: TabStyle.titled,
+          backgroundColor: const Color.fromRGBO(21, 39, 65, 1),
           items: const [
             TabItem(icon: Icons.logout_outlined, title: 'Sair'),
             TabItem(icon: Icons.auto_stories_rounded, title: 'Leituras'),
@@ -75,7 +74,7 @@ class _ListUserPageState extends State<ListUserPage> {
                     IconsButton(
                       onPressed: () {
                         Navigator.of(context)
-                            .popAndPushNamed('/contact/list/admin');
+                            .popAndPushNamed('/contact/list');
                       },
                       text: 'Não',
                       iconData: Icons.close_rounded,
@@ -98,7 +97,9 @@ class _ListUserPageState extends State<ListUserPage> {
                   ]);
             } else if (i == 1) {
               Navigator.of(context).popAndPushNamed('/contact/list');
-            } else if (i == 2) {}
+            } else if (i == 2) {
+               Navigator.of(context).popAndPushNamed('/notice/list');
+            }
           }),
       body: Container(
         padding: const EdgeInsets.only(

@@ -60,8 +60,8 @@ class _ListPageState extends State<ListPage> {
         ),
       ),
       bottomNavigationBar: ConvexAppBar(
-          style: TabStyle.react,
-          backgroundColor: const Color.fromRGBO(51, 80, 241, 1),
+          style: TabStyle.titled,
+          backgroundColor: const Color.fromRGBO(21, 39, 65, 1),
           items: const [
             TabItem(icon: Icons.logout_outlined, title: 'Sair'),
             TabItem(icon: Icons.auto_stories_rounded, title: 'Leituras'),
