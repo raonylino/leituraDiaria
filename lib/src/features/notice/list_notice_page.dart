@@ -6,24 +6,23 @@ import 'package:material_dialogs/widgets/buttons/icon_button.dart';
 import 'package:oceans/main.dart';
 
 class ListNoticePage extends StatelessWidget {
+  const ListNoticePage({super.key});
 
-  const ListNoticePage({ super.key });
-
-   @override
-   Widget build(BuildContext context) {
-       return Scaffold(
-           appBar:PreferredSize(
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: PreferredSize(
         preferredSize: const Size.fromHeight(80.0),
         child: Stack(
           children: [
             Lottie.asset(
-              'assets/animations/borderAnimation.json', 
+              'assets/animations/borderAnimation.json',
               fit: BoxFit.cover,
               width: double.infinity,
             ),
             AppBar(
-              leading:Image.asset(
-                 'assets/images/logo_ad.png',
+              leading: Image.asset(
+                'assets/images/logo_ad.png',
               ),
               toolbarHeight: 80,
               backgroundColor: Colors.transparent,
@@ -40,7 +39,7 @@ class ListNoticePage extends StatelessWidget {
           ],
         ),
       ),
-                  bottomNavigationBar: ConvexAppBar(
+      bottomNavigationBar: ConvexAppBar(
           style: TabStyle.titled,
           backgroundColor: const Color.fromRGBO(21, 39, 65, 1),
           items: const [
@@ -59,8 +58,7 @@ class ListNoticePage extends StatelessWidget {
                   actions: [
                     IconsButton(
                       onPressed: () {
-                        Navigator.of(context)
-                            .popAndPushNamed('/contact/list');
+                        Navigator.of(context).popAndPushNamed('/contact/list');
                       },
                       text: 'Não',
                       iconData: Icons.close_rounded,
@@ -87,25 +85,26 @@ class ListNoticePage extends StatelessWidget {
               Navigator.of(context).popAndPushNamed('/notice/list');
             }
           }),
-           body: Center(
-             child: Column(
-               mainAxisAlignment: MainAxisAlignment.center,
-               children: [
-                 Lottie.asset(
-                   'assets/animations/construction.json', 
-                   fit: BoxFit.cover,
-                   width: 200,
-                 ),
-                 const Text('Em Construção',
-                   style: TextStyle(
-                     color: Color.fromARGB(255, 0, 0, 0),
-                     fontSize: 20,
-                     fontFamily: 'Poppins',
-                   ),
-                 )
-               ],
-             ),
-           ),
-       );
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Lottie.asset(
+              'assets/animations/construction.json',
+              fit: BoxFit.cover,
+              width: 200,
+            ),
+            const Text(
+              'Em Construção',
+              style: TextStyle(
+                color: Color.fromARGB(255, 0, 0, 0),
+                fontSize: 20,
+                fontFamily: 'Poppins',
+              ),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
